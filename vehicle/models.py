@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 class Customer(models.Model):
+    id = models.AutoField(primary_key=True)
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     profile_pic= models.ImageField(upload_to='profile_pic/CustomerProfilePic/',null=True,blank=True)
     address = models.CharField(max_length=40)
@@ -16,6 +17,7 @@ class Customer(models.Model):
         return self.user.first_name
 
 class Mechanic(models.Model):
+    id = models.AutoField(primary_key=True)
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     profile_pic= models.ImageField(upload_to='profile_pic/MechanicProfilePic/',null=True,blank=True)
     address = models.CharField(max_length=40)
@@ -34,6 +36,7 @@ class Mechanic(models.Model):
 
 
 class Request(models.Model):
+    id=models.AutoField(primary_key=True)
     cat=(('two wheeler with gear','two wheeler with gear'),('two wheeler without gear','two wheeler without gear'),('three wheeler','three wheeler'),('four wheeler','four wheeler'))
     category=models.CharField(max_length=50,choices=cat)
 
@@ -56,11 +59,13 @@ class Request(models.Model):
         return self.problem_description
 
 class Attendance(models.Model):
+    id = models.AutoField(primary_key=True)
     mechanic=models.ForeignKey('Mechanic',on_delete=models.CASCADE,null=True)
     date=models.DateField()
     present_status = models.CharField(max_length=10)
 
 class Feedback(models.Model):
+    id = models.AutoField(primary_key=True)
     date=models.DateField(auto_now=True)
     by=models.CharField(max_length=40)
     message=models.CharField(max_length=500)
